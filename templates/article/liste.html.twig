@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}AboutController!{% endblock %}
+
+{% block body %}
+<div class="head"> 
+    {% include 'head.html.twig' %}
+</div>
+
+<!-- Inclure le fichier CSS sans utiliser <style> -->
+<link rel="stylesheet" href="{{ asset('styles/content.css') }}">
+
+{% for key, article in liste_articles %}
+    <div> 
+        <!-- Entête du tableau -->
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Text</th>
+                    <th>Public</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Affichage de chaque article -->
+                <tr>
+                    <td> 
+                        <a href="{{ '/article/show/' ~ article.id }}">
+                            {{ article.id }}
+                        </a>
+                    </td>
+                    <td> {{ article.titre }} </td>
+                    <td> {{ article.date|date('d/m/y') }} </td>
+                    <td> {{ article.texte|u.truncate(30)|raw }}... </td>
+                    <td> 
+                        {% if article.publie %}
+                            {{ ux_icon('bi:check2-square', {height : '16px', width : '16px'}) }}
+                        {% else %}
+                            {{ ux_icon('bi:square') }}
+                        {% endif %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{% endfor %}
+
+<div class="footer"> 
+    {% include 'footer.html.twig' %}
+</div>
+<div class="messages">
+    {% for message in app.flashes('success')%}
+        <div class="alert alert-success">
+            {{message}}
+        </div>
+        {%endfor%}
+</div>
+{% endblock %}

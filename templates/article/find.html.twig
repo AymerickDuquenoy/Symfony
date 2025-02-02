@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}AboutController!{% endblock %}
+
+{% block body %}
+<div class="head"> 
+    {% include 'head.html.twig' %}
+</div>
+
+<!-- Inclure le fichier CSS -->
+<link rel="stylesheet" href="{{ asset('styles/content.css') }}">
+
+<!-- Table pour afficher l'article -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Date</th>
+            <th>Text</th>
+            <th>Public</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr> 
+            <td> {{ findArticle.id }} </td>
+            <td> {{ findArticle.titre }} </td>
+            <td> {{ findArticle.date|date('d/m/y') }} </td>
+            <td> {{ findArticle.texte|u.truncate(30)|raw }}... </td>
+            <td> 
+                {% if (findArticle.publie) %}
+                    {{ ux_icon('bi:check2-square', {height: '16px', width: '16px'}) }}
+                {% else %}
+                    {{ ux_icon('bi:square') }}
+                {% endif %}
+            </td>
+        </tr>
+        <td>
+            <a href="{{ path('article_edit', { 'id': findArticle.id }) }}" class="btn btn-primary">Modifier</a>
+            
+            <a href="{{ path('article_delete', { 'id': findArticle.id }) }}" class="btn btn-danger" 
+               onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?')">Supprimer</a>
+        </td>
+        
+    </tbody>
+</table>
+
+<div class="footer"> 
+    {% include 'footer.html.twig' %}
+</div>
+<div class="messages">
+    {% for message in app.flashes('success')%}
+        <div class="alert alert-success">
+            {{message}}
+        </div>
+        {%endfor%}
+    </div>
+{% endblock %}

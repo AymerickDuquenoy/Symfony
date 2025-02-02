@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Modifier l'article{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20128%20128%22%3E%3Ctext%20y%3D%221.2em%22%20font-size%3D%2296%22%3E%F0%9F%9A%AB%EF%B8%8F%3C%2Ftext%3E%3Ctext%20y%3D%221.3em%22%20x%3D%220.2em%22%20font-size%3D%2276%22%20fill%3D%22%23fff%22%3Esf%3C%2Ftext%3E%3C%2Fsvg%3E">
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+        {% block javascripts %}
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}
+            <h1>Modifier l'article</h1>
+            {{ form_start(form) }}
+                <div class="form-group">
+                    {{ form_label(form.titre) }}
+                    {{ form_widget(form.titre, { 'attr': {'class': 'form-control'} }) }}
+                    {{ form_errors(form.titre) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.texte) }}
+                    {{ form_widget(form.texte, { 'attr': {'class': 'form-control'} }) }}
+                    {{ form_errors(form.texte) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.publie) }}
+                    {{ form_widget(form.publie, { 'attr': {'class': 'form-check'} }) }}
+                    {{ form_errors(form.publie) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.date) }}
+                    {{ form_widget(form.date, { 'attr': {'class': 'form-control'} }) }}
+                    {{ form_errors(form.date) }}
+                </div>
+
+                <button type="submit" class="btn btn-primary">Modifier l'article</button>
+            {{ form_end(form) }}
+        {% endblock %}
+    </body>
+</html>
